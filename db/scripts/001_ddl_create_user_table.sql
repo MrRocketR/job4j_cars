@@ -1,5 +1,6 @@
 CREATE TABLE if not exists AUTO_USER (
    id SERIAL PRIMARY KEY,
-   login TEXT,
+   login varchar unique,
    password TEXT
 );
+
