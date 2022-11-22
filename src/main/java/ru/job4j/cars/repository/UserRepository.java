@@ -93,6 +93,7 @@ public class UserRepository {
     public List<User> findAllOrderById() {
         Session session = sf.openSession();
         List<User> list = session.createQuery(ORDER_BY_ID_HQL, User.class).list();
+        session.close();
         return list;
     }
 
@@ -107,6 +108,7 @@ public class UserRepository {
                 FIND_BY_ID, User.class);
         query.setParameter("fId", userId);
         Optional<User> user = Optional.ofNullable(query.uniqueResult());
+        session.close();
         return user;
     }
 
@@ -121,6 +123,7 @@ public class UserRepository {
         Query<User> query = session.createQuery(
                 FIND_LIKE_KEY, User.class);
         List<User> list = query.setParameter("fPattern", "%" + key + "%").list();
+        session.close();
         return list;
 
     }
@@ -137,6 +140,7 @@ public class UserRepository {
                 FIND_BY_LOGIN, User.class);
         query.setParameter("fLogin", login);
         Optional<User> user = Optional.ofNullable(query.uniqueResult());
+        session.close();
         return user;
     }
 }

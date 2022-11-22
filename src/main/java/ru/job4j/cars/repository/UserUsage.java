@@ -20,15 +20,15 @@ public class UserUsage {
             var user = new User();
             user.setLogin("admin2");
             user.setPassword("admin2");
-           userRepository.create(user);
-           user.setPassword("qwerty");
-           userRepository.update(user);
-           userRepository.findAllOrderById()
-                   .forEach(System.out::println);
+            userRepository.create(user);
+            user.setPassword("qwerty");
+            userRepository.update(user);
+            userRepository.findAllOrderById()
+                    .forEach(System.out::println);
             userRepository.delete(user.getId());
             userRepository.findByLikeLogin("ov").forEach(System.out::println);
             userRepository.findById(2).ifPresent(System.out::println);
-           userRepository.findByLogin("Petrov").ifPresent(System.out::println);
+            userRepository.findByLogin("Petrov").ifPresent(System.out::println);
         } finally {
             StandardServiceRegistryBuilder.destroy(registry);
         }
