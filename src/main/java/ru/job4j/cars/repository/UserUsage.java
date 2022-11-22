@@ -8,6 +8,8 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import ru.job4j.cars.model.User;
 
+import java.util.Optional;
+
 public class UserUsage {
     public static void main(String[] args) {
         StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
@@ -16,18 +18,17 @@ public class UserUsage {
                 .buildMetadata().buildSessionFactory()) {
             var userRepository = new UserRepository(sf);
             var user = new User();
-            user.setLogin("admin");
-            user.setPassword("admin");
-            Session session = sf.openSession();
-            userRepository.create(user, session);
-            user.setPassword("qwerty");
-            userRepository.update(user, session);
-            userRepository.findAllOrderById(session)
-                    .forEach(System.out::println);
-            userRepository.delete(user.getId(), session);
-            userRepository.findByLikeLogin("ov", session).forEach(System.out::println);
-            userRepository.findById(2, session).ifPresent(System.out::println);
-            userRepository.findByLogin("Petrov", session).ifPresent(System.out::println);
+            user.setLogin("admin2");
+            user.setPassword("admin2");
+           userRepository.create(user);
+           user.setPassword("qwerty");
+           userRepository.update(user);
+           userRepository.findAllOrderById()
+                   .forEach(System.out::println);
+            userRepository.delete(user.getId());
+            userRepository.findByLikeLogin("ov").forEach(System.out::println);
+            userRepository.findById(2).ifPresent(System.out::println);
+           userRepository.findByLogin("Petrov").ifPresent(System.out::println);
         } finally {
             StandardServiceRegistryBuilder.destroy(registry);
         }

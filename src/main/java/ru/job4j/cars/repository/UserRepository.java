@@ -16,8 +16,6 @@ import java.util.Optional;
 public class UserRepository {
 
     private final SessionFactory sf;
-    private static final String CREATE_HQL = "INSERT INTO auto_user (login, password) "
-            + "VALUES (:fLogin, :fPass)";
     private static final String UPDATE_HQL = "UPDATE User as u  SET u.login = :fLogin, "
             + "u.password = :fPass  WHERE u.id = :fId";
 
@@ -34,14 +32,11 @@ public class UserRepository {
      * @param user пользователь.
      * @return пользователь с id.
      */
-    public User create(User user, Session session) {
+    public User create(User user) {
+        Session session = sf.openSession();
         try {
             session.beginTransaction();
-            session.createNativeQuery(
-                            CREATE_HQL)
-                    .setParameter("fLogin", user.getLogin())
-                    .setParameter("fPass", user.getPassword())
-                    .executeUpdate();
+            session.persist(user);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
@@ -55,7 +50,8 @@ public class UserRepository {
      *
      * @param user пользователь.
      */
-    public void update(User user, Session session) {
+    public void update(User user) {
+        Session session = sf.openSession();
         try {
             session.beginTransaction();
             session.createQuery(UPDATE_HQL)
@@ -75,7 +71,8 @@ public class UserRepository {
      *
      * @param userId ID
      */
-    public void delete(int userId, Session session) {
+    public void delete(int userId) {
+        Session session = sf.openSession();
         try {
             session.beginTransaction();
             session.createQuery(DELETE_HQL)
@@ -93,16 +90,10 @@ public class UserRepository {
      *
      * @return список пользователей.
      */
-    public List<User> findAllOrderById(Session session) {
-        List<User> listOut = new ArrayList<>();
-        String findByOrder = ORDER_BY_ID_HQL;
-        List<?> list = session.createQuery(findByOrder).list();
-        for (int i = 0; i < list.size(); i++) {
-            User user = (User) list.get(i);
-            listOut.add(user);
-        }
-
-        return listOut;
+    public List<User> findAllOrderById() {
+        Session session = sf.openSession();
+        List<User> list = session.createQuery(ORDER_BY_ID_HQL, User.class).list();
+        return list;
     }
 
     /**
@@ -110,11 +101,12 @@ public class UserRepository {
      *
      * @return пользователь.
      */
-    public Optional<User> findById(int userId, Session session) {
+    public Optional<User> findById(int userId) {
+        Session session = sf.openSession();
         Query<User> query = session.createQuery(
                 FIND_BY_ID, User.class);
         query.setParameter("fId", userId);
-        Optional<User> user = Optional.of(query.uniqueResult());
+        Optional<User> user = Optional.ofNullable(query.uniqueResult());
         return user;
     }
 
@@ -124,18 +116,12 @@ public class UserRepository {
      * @param key key
      * @return список пользователей.
      */
-    public List<User> findByLikeLogin(String key, Session session) {
-
+    public List<User> findByLikeLogin(String key) {
+        Session session = sf.openSession();
         Query<User> query = session.createQuery(
                 FIND_LIKE_KEY, User.class);
-        List<?> list = query.setParameter("fPattern", "%" + key + "%").list();
-        List<User> listOut = new ArrayList<>();
-        for (int i = 0; i < list.size(); i++) {
-            User user = (User) list.get(i);
-            listOut.add(user);
-        }
-
-        return listOut;
+        List<User> list = query.setParameter("fPattern", "%" + key + "%").list();
+        return list;
 
     }
 
@@ -145,11 +131,12 @@ public class UserRepository {
      * @param login login.
      * @return Optional or user.
      */
-    public Optional<User> findByLogin(String login, Session session) {
+    public Optional<User> findByLogin(String login) {
+        Session session = sf.openSession();
         Query<User> query = session.createQuery(
                 FIND_BY_LOGIN, User.class);
         query.setParameter("fLogin", login);
-        Optional<User> user = Optional.of(query.uniqueResult());
+        Optional<User> user = Optional.ofNullable(query.uniqueResult());
         return user;
     }
 }
