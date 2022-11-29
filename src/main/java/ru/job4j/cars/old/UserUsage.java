@@ -1,14 +1,12 @@
-package ru.job4j.cars.repository;
+package ru.job4j.cars.old;
 
 import lombok.var;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import ru.job4j.cars.model.User;
-
-import java.util.Optional;
+import ru.job4j.cars.old.UserRepositoryOld;
 
 public class UserUsage {
     public static void main(String[] args) {
@@ -16,7 +14,7 @@ public class UserUsage {
                 .configure().build();
         try (SessionFactory sf = new MetadataSources(registry)
                 .buildMetadata().buildSessionFactory()) {
-            var userRepository = new UserRepository(sf);
+            var userRepository = new UserRepositoryOld(sf);
             var user = new User();
             user.setLogin("admin2");
             user.setPassword("admin2");
