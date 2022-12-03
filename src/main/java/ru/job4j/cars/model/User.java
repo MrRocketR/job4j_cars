@@ -18,11 +18,8 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    @Column(name = "id")
     private int id;
-    @Column(name = "login")
     private String login;
-    @Column(name = "password")
     private String password;
     @OneToMany(mappedBy = "user")
     private List<Post> postList;

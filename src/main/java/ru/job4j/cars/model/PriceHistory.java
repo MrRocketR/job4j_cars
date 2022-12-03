@@ -19,15 +19,11 @@ public class PriceHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    @Column(name = "id")
     private int id;
-    @Column(name = "before")
     private long before;
-    @Column(name = "after")
     private long after;
-    @Column(name = "created")
     private LocalDateTime created = LocalDateTime.now();
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "post_id")
     Post post;
 

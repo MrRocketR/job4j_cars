@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "auto_table")
+@Table(name = "auto_post")
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @AllArgsConstructor
@@ -19,13 +19,10 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    @Column(name = "id")
     private int id;
-    @Column(name = "text")
-    private String text;
-    @Column(name = "created")
+    private String description;
     private LocalDateTime created =  LocalDateTime.now();
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "auto_user_id")
     private User user;
     @OneToMany(mappedBy = "post")
