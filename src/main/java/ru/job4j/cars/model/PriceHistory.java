@@ -23,9 +23,7 @@ public class PriceHistory {
     private long before;
     private long after;
     private LocalDateTime created = LocalDateTime.now();
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "post_id")
-    Post post;
+
 
 
 }

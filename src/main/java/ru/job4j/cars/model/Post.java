@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "auto_post")
+@Table(name = "AUTO_POST")
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @AllArgsConstructor
@@ -22,9 +22,10 @@ public class Post {
     private int id;
     private String description;
     private LocalDateTime created =  LocalDateTime.now();
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "auto_user_id")
     private User user;
-    @OneToMany(mappedBy = "post")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "post_id")
     private List<PriceHistory> priceHistoryList;
 }
