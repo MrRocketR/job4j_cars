@@ -35,6 +35,6 @@ public class Post {
             joinColumns = { @JoinColumn(name = "s_post_id") },
             inverseJoinColumns = { @JoinColumn(name = "s_user_id") }
     )
-    private List<User> subs;
+    private List<User> subscriptions = new ArrayList<>();
 
 }
