@@ -37,4 +37,7 @@ public class Post {
     )
     private List<User> subscriptions = new ArrayList<>();
 
+    @OneToOne
+    @JoinColumn(name = "car_id")
+    private Car car;
 }

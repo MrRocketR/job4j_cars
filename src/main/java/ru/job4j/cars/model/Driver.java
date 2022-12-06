@@ -2,29 +2,29 @@ package ru.job4j.cars.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "auto_user")
 @Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+@Table(name = "drivers")
+public class Driver {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Include
     private int id;
-    private String login;
-    private String password;
-    @OneToMany(mappedBy = "user")
-    private List<Post> postList;
-
-    @OneToOne(mappedBy = "driver")
+    private String name;
+    @OneToOne
+    @JoinColumn(name = "user_id")
     private User user;
+
+    @ManyToMany(mappedBy = "drivers")
+    private List<Car> cars = new ArrayList<>();
+
 
 }
