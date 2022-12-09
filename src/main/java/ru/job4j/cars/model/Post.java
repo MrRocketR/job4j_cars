@@ -30,6 +30,8 @@ public class Post {
     @JoinColumn(name = "post_id")
     private List<PriceHistory> priceHistoryList = new ArrayList<>();
 
+    private byte[] photo;
+
     @ManyToMany
     @JoinTable(name = "subscription",
             joinColumns = { @JoinColumn(name = "s_post_id") },
