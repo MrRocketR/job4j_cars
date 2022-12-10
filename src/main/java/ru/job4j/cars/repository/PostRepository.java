@@ -36,9 +36,7 @@ public class PostRepository {
 
 
     public List<Post> showNewPosts() {
-        String now = LocalDateTime.now().format(DateTimeFormatter.ISO_DATE);
-        String query = "From Post as p where p.created = " + now;
-        return crudRepository.query(query, Post.class);
+        return crudRepository.query("SELECT p FROM Post p WHERE p.created >= current_date", Post.class);
     }
 
     public List<Post> showWithPhoto() {
