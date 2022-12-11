@@ -36,7 +36,7 @@ public class PostRepository {
 
 
     public List<Post> showNewPosts() {
-        return crudRepository.query("SELECT p FROM Post p WHERE p.created >= current_date", Post.class);
+        return crudRepository.query("SELECT p FROM Post p WHERE p.created between current_date and current_date + 1", Post.class);
     }
 
     public List<Post> showWithPhoto() {
