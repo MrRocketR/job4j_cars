@@ -1,6 +1,5 @@
 package ru.job4j.cars.old;
 
-import lombok.var;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;

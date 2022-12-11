@@ -18,6 +18,6 @@ public class Engine {
     private int id;
     private String name;
 
-    @OneToOne(mappedBy = "cars")
+    @OneToOne(mappedBy = "engine")
     private Car car;
 }

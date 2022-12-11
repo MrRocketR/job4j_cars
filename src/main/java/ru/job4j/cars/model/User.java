@@ -24,7 +24,7 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Post> postList;
 
-    @OneToOne(mappedBy = "driver")
-    private User user;
+    @OneToOne(mappedBy = "user")
+    private Driver driver;
 
 }

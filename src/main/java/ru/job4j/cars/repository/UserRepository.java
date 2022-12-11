@@ -17,7 +17,7 @@ public class UserRepository {
      * @return пользователь с id.
      */
     public User create(User user) {
-        crudRepository.run(session -> session.persist(user));
+        crudRepository.run(session -> session.save(user));
         return user;
     }
 
@@ -25,9 +25,16 @@ public class UserRepository {
      * Обновить в базе пользователя.
      * @param user пользователь.
      */
-    public void update(User user) {
-        crudRepository.run(session -> session.merge(user));
+    public void update(int id, User user) {
+        crudRepository.run("UPDATE User as u SET  u.login = :fLogin,"
+                        + " u.password = :fPassword"
+                        + "WHERE  u.id = :fId",
+                Map.of("fId", id,
+                        "fLogin", user.getLogin(),
+                        "fPassword", user.getPassword())
+        );
     }
+
 
     /**
      * Удалить пользователя по id.
@@ -85,5 +92,10 @@ public class UserRepository {
                 "from User where login = :fLogin", User.class,
                 Map.of("fLogin", login)
         );
+    }
+
+    public List<User> getUsersList() {
+        List<User> list = crudRepository.query("From User", User.class);
+        return list;
     }
 }
