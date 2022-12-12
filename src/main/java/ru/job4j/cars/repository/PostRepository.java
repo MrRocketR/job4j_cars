@@ -40,7 +40,7 @@ public class PostRepository {
     public List<Post> showNewPosts() {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime dayBefore = LocalDateTime.now().minusDays(1);
-        return crudRepository.query("FROM Post AS p WHERE p.created BETWEEN :fNow AND :fDayBefore ", Post.class,
+        return crudRepository.query("FROM Post AS p WHERE p.created BETWEEN :fDayBefore AND :fNow", Post.class,
                 Map.of("fNow", now, "fDayBefore", dayBefore));
     }
 
