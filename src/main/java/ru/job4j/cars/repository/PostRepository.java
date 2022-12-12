@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import ru.job4j.cars.model.Car;
 import ru.job4j.cars.model.Post;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -36,7 +38,10 @@ public class PostRepository {
 
 
     public List<Post> showNewPosts() {
-        return crudRepository.query("SELECT p FROM Post p WHERE p.created between current_date and current_date + 1", Post.class);
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime dayBefore = LocalDateTime.now().minusDays(1);
+        return crudRepository.query("FROM Post AS p WHERE p.created BETWEEN :fNow AND :fDayBefore ", Post.class,
+                Map.of("fNow", now, "fDayBefore", dayBefore));
     }
 
     public List<Post> showWithPhoto() {
