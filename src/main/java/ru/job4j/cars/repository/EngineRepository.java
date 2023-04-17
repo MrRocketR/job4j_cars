@@ -3,7 +3,6 @@ package ru.job4j.cars.repository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import ru.job4j.cars.model.Engine;
-import ru.job4j.cars.model.User;
 
 import java.util.List;
 import java.util.Map;
@@ -19,7 +18,15 @@ public class EngineRepository {
         crudRepository.run(session -> session.save(engine));
     }
     public List<Engine> showEngines() {
-        return crudRepository.query("from Engines", Engine.class);
+        return crudRepository.query("from Engine", Engine.class);
+    }
+
+
+    public Optional<Engine> findByEngineName(String engine) {
+        return crudRepository.optional(
+                "from Engine where name = :fName", Engine.class,
+                Map.of("fName", engine)
+        );
     }
 
 

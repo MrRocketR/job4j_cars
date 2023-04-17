@@ -5,6 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
@@ -14,7 +15,9 @@ import java.util.function.Function;
 
 
 @AllArgsConstructor
+@Repository
 public class CrudRepository {
+
     private final SessionFactory sf;
 
     public void run(Consumer<Session> command) {
@@ -23,6 +26,15 @@ public class CrudRepository {
             return null;
                 }
         );
+    }
+
+    public <T> void addToDbMethod(T t) {
+        Session session = sf.openSession();
+        session.beginTransaction();
+        session.save(t);
+        session.getTransaction().commit();
+        session.close();
+
     }
 
   public void run(String query, Map<String, Object> args) {
@@ -36,6 +48,8 @@ public class CrudRepository {
         };
         run(command);
     }
+
+
 
       public <T> List<T> query(String query, Class<T> cl) {
         Function<Session, List<T>> command = session -> session

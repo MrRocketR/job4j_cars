@@ -3,7 +3,6 @@ package ru.job4j.cars.repository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import ru.job4j.cars.model.Car;
-import ru.job4j.cars.model.Driver;
 import ru.job4j.cars.model.Engine;
 
 import java.util.List;
@@ -20,14 +19,15 @@ public class CarRepository {
         crudRepository.run(session -> session.persist(car));
     }
 
+
     public void update(Car car, int id) {
         crudRepository.run("UPDATE Car as c SET  c.name = :fName,"
-                        + " c.engine_id = :fEngine WHERE  c.id = :fId",
+                        + "c.engine = :fEngine WHERE  c.id = :fId",
                 Map.of("fId", id,
-                        "fEngine", car.getEngine().getId(),
-                        "fName", car.getName())
-        );
+                        "fEngine", car.getEngine(),
+                        "fName", car.getName()));
     }
+
 
     public void delete(int id) {
         crudRepository.run("DELETE Car as c where c.id = :fId",
@@ -50,8 +50,5 @@ public class CarRepository {
                 Map.of("fId", engine.getId()));
     }
 
-    public List<Driver> showDrivers(int id) {
-        Optional<Car> carOptional = getCarById(id);
-        return carOptional.get().getDrivers();
-    }
+
 }
