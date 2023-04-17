@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+      .button {
+        display: inline-block;
+        padding: 10px;
+        background-color: #4CAF50;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+      }
+    </style>
+
+    <title>Posts</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand">Posts</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <!-- <div class="navbar-nav">
+            <a class="nav-item nav-link" th:href="@{/films}">Films</a>
+            <a class="nav-item nav-link" th:href="@{/regUser}">Registration</a>
+            <a class="nav-item nav-link" th:if="${user.name == 'Guest'}" th:href="@{/loginPage}">
+                <span th:text="${user.name}"></span>
+                <span> | Sign In</span>
+            </a>
+            <a class="nav-item nav-link" th:if="${user.name != 'Guest'}" th:href="@{/logout}">
+                <span th:text="${user.name}"></span>
+                <span> | Sign out</span>
+            </a>
+        </div> -->
+
+    </div>
+</nav>
+
+<div>
+    <a href="/postsAll" class="button">Все объявления</a>
+    <a href="/postsByNew" class="button">Новые объявления</a>
+    <a href="/myPosts" class="button">Мои объявления</a>
+    <a href="/createPostPage" class="button">Создать объявление</a>
+    <a href="/logout" class="button">Выход</a>
+</div>
+<div class="container">
+    <div class="row">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Пользователь</th>
+                <th scope="col">Дата</th>
+                <th scope="col">Марка</th>
+                <th scope="col">Двигатель</th>
+                <th scope="col">Описание</th>
+                <th scope="col">Фото</th>
+                <th scope="col">Цена</th>
+                <th scope="col">Статус</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="dto: ${dtoList}">
+                <td th:text="${dto.userName}"></td>
+                <td th:text="${#temporals.format(dto.postCreated, 'dd-MM-yyyy')}"></td>
+                <td th:text="${dto.carName}"></td>
+                <td th:text="${dto.carEngineName}"></td>
+                <td th:text="${dto.postDescription}"></td>
+                <td>
+                    <img th:width="300" th:high="300" th:src="@{|/postPhoto/${dto.postId}|}">
+                </td>
+                    <td th:text="${dto.postPrice}"></td>
+                    <td th:text="${dto.postStatus}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </body>
+    </html>
