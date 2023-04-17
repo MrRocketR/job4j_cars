@@ -40,17 +40,18 @@
 ```
 
 ### Страница приветствия, регистрации и авторизации:
-![](img/readmi/login.png)
-![](img/readmi/reg.png)
+![](imgs/index.png)
+![](imgs/login.png)
+![](imgs/registration.png)
 
 ### Страница с объявлениями:
-![](img/readmi/main.png)
-![](img/readmi/hall.png)
+![](imgs/posts.png)
+![](imgs/posts2.png)
 
 ### Страница с моими объявлениями и редактирования:
-![](img/readmi/ticket.png)
-![](img/readmi/fin.png)
-![](img/readmi/fail.png)
+![](imgs/myposts.png)
+![](imgs/update.png)
+
 
 
 
