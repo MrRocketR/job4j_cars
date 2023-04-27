@@ -3,33 +3,24 @@ package ru.job4j.cars.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.job4j.cars.model.*;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
-@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CarPostDto {
+public class CarPostViewDto {
 
 
     /**
      * DTO для модели Post
      */
     private int postId;
-
     private String postDescription;
     private LocalDateTime postCreated;
     private String postPrice;
-    private String postStatus;
+    private boolean postStatus;
     private byte[] postPhoto;
 
     /**
@@ -38,7 +29,9 @@ public class CarPostDto {
 
     private int carId;
     private String carName;
-    private String carEngineName;
+    private String carEngine;
+    private String carBody;
+    private String carTransmission;
 
     /**
      * DTO для модели User
@@ -58,7 +51,7 @@ public class CarPostDto {
                 + ", postStatus='" + postStatus + '\''
                 + ", postPhoto=" + postPhoto.length
                 + ", carName='" + carName + '\''
-                + ", carEngineName='" + carEngineName + '\''
+                + ", carEngineName='" + carEngine + '\''
                 + ", userName='" + userName + '\''
                 + ", userId=" + userId + '}';
     }
