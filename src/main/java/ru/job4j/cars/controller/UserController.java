@@ -60,7 +60,7 @@ public class UserController {
         }
         HttpSession session = request.getSession();
         session.setAttribute("user", userDb.get());
-        return "redirect:/postsAll";
+        return "redirect:/posts/All";
     }
 
 

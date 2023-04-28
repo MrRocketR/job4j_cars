@@ -31,7 +31,7 @@
       }
     </style>
 
-    <title>Posts</title>
+    <title>MyPosts</title>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -58,21 +58,20 @@
 </nav>
 
 <div>
-    <a href="/postsAll" class="button">Все объявления</a>
-    <a href="/postsByNew" class="button">Новые объявления</a>
-    <a href="/myPosts" class="button">Мои объявления</a>
-    <a href="/createPostPage" class="button">Создать объявление</a>
-    <a href="/logout" class="button">Выход</a>
+    <a href="/posts/All" class="button">Назад к объявлениям</a>
 </div>
 <div class="container">
     <div class="row">
         <table class="table">
             <thead>
             <tr>
+                <th scope="col">#</th>
                 <th scope="col">Пользователь</th>
                 <th scope="col">Дата</th>
                 <th scope="col">Марка</th>
                 <th scope="col">Двигатель</th>
+                <th scope="col">Кузов</th>
+                <th scope="col">Трансмиссия</th>
                 <th scope="col">Описание</th>
                 <th scope="col">Фото</th>
                 <th scope="col">Цена</th>
@@ -81,20 +80,26 @@
             </thead>
             <tbody>
             <tr th:each="dto: ${dtoList}">
+                <td>
+                    <a th:href="@{|updatePost/${dto.postId}|}"> Редактировать</a>
+                </td>
+
                 <td th:text="${dto.userName}"></td>
                 <td th:text="${#temporals.format(dto.postCreated, 'dd-MM-yyyy')}"></td>
                 <td th:text="${dto.carName}"></td>
-                <td th:text="${dto.carEngineName}"></td>
+                <td th:text="${dto.carEngine}"></td>
+                <td th:text="${dto.carBody}"></td>
+                <td th:text="${dto.carTransmission}"></td>
                 <td th:text="${dto.postDescription}"></td>
                 <td>
-                    <img th:width="300" th:high="300" th:src="@{|/postPhoto/${dto.postId}|}">
+                    <img th:width="300" th:high="300" th:src="@{|postPhoto/${dto.postId}|}">
                 </td>
-                    <td th:text="${dto.postPrice}"></td>
-                    <td th:text="${dto.postStatus}"></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+                <td th:text="${dto.postPrice}"></td>
+                <td th:text="${dto.postStatus}"></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
-    </body>
-    </html>
+</div>
+</body>
+</html>
