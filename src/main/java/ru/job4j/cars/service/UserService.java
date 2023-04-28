@@ -1,9 +1,12 @@
 package ru.job4j.cars.service;
 
 import org.springframework.stereotype.Service;
+import ru.job4j.cars.model.Post;
 import ru.job4j.cars.model.User;
 
 import ru.job4j.cars.repository.UserRepository;
+
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -16,9 +19,8 @@ public class UserService {
     }
 
 
-    public User create(User user) {
-        userRepository.create(user);
-        return user;
+    public Optional<User> create(User user) {
+        return userRepository.create(user);
     }
 
     public void update(int id, User user) {
@@ -39,5 +41,8 @@ public class UserService {
         return userRepository.findById(userId);
     }
 
+    public List<Post> findUserPosts(int userId) {
+       return findById(userId).get().getPostList();
+    }
 
 }

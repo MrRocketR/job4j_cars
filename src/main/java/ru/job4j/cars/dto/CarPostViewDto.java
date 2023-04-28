@@ -1,17 +1,16 @@
 package ru.job4j.cars.dto;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class CarPostViewDto {
-
 
     /**
      * DTO для модели Post
@@ -20,7 +19,7 @@ public class CarPostViewDto {
     private String postDescription;
     private LocalDateTime postCreated;
     private String postPrice;
-    private boolean postStatus;
+    private String postStatus;
     private byte[] postPhoto;
 
     /**

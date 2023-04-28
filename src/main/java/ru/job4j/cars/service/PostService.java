@@ -22,7 +22,7 @@ public class PostService {
     }
 
     public void createPost(Post post) {
-        post.setStatus("на продаже");
+  //      post.setStatus("на продаже");
         post.setCreated(LocalDateTime.now());
         postRepository.createPost(post);
     }

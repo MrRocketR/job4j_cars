@@ -15,6 +15,8 @@ import ru.job4j.cars.service.CarService;
 import ru.job4j.cars.service.PostService;
 import ru.job4j.cars.service.UserService;
 
+import java.util.Map;
+
 @Service
 public class DtoUpdateService {
     private final CarService carService;
@@ -33,11 +35,13 @@ public class DtoUpdateService {
     }
 
     private Post conventToPost(CarPostUpdateDto dto) {
+        Map<String, Boolean> statuses =
+                Map.of("Продано", Boolean.TRUE, "На продаже", Boolean.FALSE);
         Post post = Post.builder()
                 .description(dto.getPostDescription())
                 .photo(dto.getPostPhoto())
                 .price(dto.getPostPrice())
-                .status(dto.isPostStatus())
+                .status(statuses.get(dto.getPostStatus()))
                 .id(dto.getPostId())
                 .build();
         return post;

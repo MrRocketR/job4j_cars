@@ -28,15 +28,6 @@ public class CrudRepository {
         );
     }
 
-    public <T> void addToDbMethod(T t) {
-        Session session = sf.openSession();
-        session.beginTransaction();
-        session.save(t);
-        session.getTransaction().commit();
-        session.close();
-
-    }
-
   public void run(String query, Map<String, Object> args) {
         Consumer<Session> command = session -> {
             Query sq = session

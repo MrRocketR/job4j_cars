@@ -21,9 +21,15 @@ public class UserRepository {
      */
 
 
-    public User create(User user) {
-        crudRepository.run(session -> session.save(user));
-        return user;
+    public Optional<User> create(User user) {
+        Optional<User> optional;
+        try {
+            crudRepository.run(session -> session.save(user));
+            optional = Optional.of(user);
+        } catch (Exception e) {
+            optional = Optional.empty();
+        }
+        return optional;
     }
 
 

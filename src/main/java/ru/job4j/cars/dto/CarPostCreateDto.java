@@ -19,7 +19,6 @@ public class CarPostCreateDto {
      */
     private String postDescription;
     private String postPrice;
-    private boolean postStatus;
     private byte[] postPhoto;
 
     /**

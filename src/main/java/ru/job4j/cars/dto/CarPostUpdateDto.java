@@ -17,7 +17,7 @@ public class CarPostUpdateDto {
     private String postDescription;
 
     private String postPrice;
-    private boolean postStatus;
+    private String postStatus;
     private byte[] postPhoto;
 
     /**
@@ -33,7 +33,6 @@ public class CarPostUpdateDto {
     /**
      * DTO для модели User
      */
-
 
     private int userId;
 

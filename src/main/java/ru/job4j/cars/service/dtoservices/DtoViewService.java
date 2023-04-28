@@ -10,17 +10,20 @@ import ru.job4j.cars.service.PostService;
 import ru.job4j.cars.service.UserService;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
-
 public class DtoViewService {
 
     private final PostService postService;
     private final UserService userService;
     private final CarService carService;
 
-    public DtoViewService(PostService postService, UserService userService, CarService carService) {
+    public DtoViewService(PostService postService,
+                          UserService userService,
+                          CarService carService) {
         this.postService = postService;
         this.userService = userService;
         this.carService = carService;
@@ -29,12 +32,14 @@ public class DtoViewService {
     private CarPostViewDto convertToDto(Post post) {
         Car car = post.getCar();
         User user = post.getUser();
+        Map<Boolean, String> statuses =
+                Map.of(Boolean.TRUE, "Продано", Boolean.FALSE, "На продаже");
         CarPostViewDto dto = CarPostViewDto.builder()
                 .postId(post.getId())
                 .postDescription(post.getDescription())
                 .postCreated(post.getCreated())
                 .postPhoto(post.getPhoto())
-                .postStatus(post.isStatus())
+                .postStatus(statuses.get(post.isStatus()))
                 .postPrice(post.getPrice())
                 .carName(car.getName())
                 .carBody(car.getBody().getBody())
@@ -66,6 +71,11 @@ public class DtoViewService {
         List<CarPostViewDto> dtoList = user.getPostList().stream()
                 .map(this::convertToDto).toList();
         return dtoList;
+    }
+
+    public List<CarPostViewDto> showMyPostsByUser(int userId) {
+        return userService.findUserPosts(userId).stream()
+                .map(this::convertToDto).toList();
     }
 
 

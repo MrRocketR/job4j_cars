@@ -24,6 +24,8 @@ public class PostRepository {
 
 
     public void createPost(Post post) {
+        post.setStatus(false);
+        post.setCreated(LocalDateTime.now());
         crudRepository.run(session -> session.persist(post));
     }
 
@@ -33,7 +35,7 @@ public class PostRepository {
         map.put("fDescription", post.getDescription());
         map.put("fPrice", post.getPrice());
         map.put("fPhoto", post.getPhoto());
-        map.put("fStatus", post.getStatus());
+        map.put("fStatus", post.isStatus());
         crudRepository.run("UPDATE Post as p SET  p.description = :fDescription,"
                         + "p.price = :fPrice, p.photo = :fPhoto, p.status = :fStatus "
                         + "WHERE p.id = :fId",
