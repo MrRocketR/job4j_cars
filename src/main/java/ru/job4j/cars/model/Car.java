@@ -1,12 +1,11 @@
 package ru.job4j.cars.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import ru.job4j.cars.model.enums.Body;
+import ru.job4j.cars.model.enums.Engine;
+import ru.job4j.cars.model.enums.Transmission;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 
 @Entity
@@ -15,6 +14,8 @@ import java.util.Objects;
 @Builder
 @Table(name = "cars")
 @EqualsAndHashCode
+@Setter
+@Getter
 public class Car {
 
     @Id
@@ -22,51 +23,21 @@ public class Car {
     private int id;
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "engine_id")
-    private Engine engine;
 
     @OneToOne(mappedBy = "car", fetch = FetchType.LAZY)
     private Post post;
 
-    public int getId() {
-        return id;
-    }
+    @Enumerated(EnumType.STRING)
+    @Column(name = "engine_type")
+    private Engine engine;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    @Enumerated(EnumType.STRING)
+    @Column(name = "transmission_type")
+    private Transmission transmission;
 
-    public String getName() {
-        return name;
-    }
+    @Enumerated(EnumType.STRING)
+    @Column(name = "body_type")
+    private Body body;
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
-    public Engine getEngine() {
-        return engine;
-    }
-
-    public void setEngine(Engine engine) {
-        this.engine = engine;
-    }
-
-    public Post getPost() {
-        return post;
-    }
-
-    public void setPost(Post post) {
-        this.post = post;
-    }
-
-    @Override
-    public String toString() {
-        return "Car{"
-                + "id=" + id
-                + ", name='" + name + '\''
-                + ", engine=" + engine.getName()
-                + ", post=" + post.getDescription() + '}';
-    }
 }

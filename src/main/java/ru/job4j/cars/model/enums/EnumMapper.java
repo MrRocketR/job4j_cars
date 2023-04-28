@@ -2,14 +2,13 @@ package ru.job4j.cars.model.enums;
 
 import java.util.HashMap;
 import java.util.Map;
-
 public class EnumMapper {
 
     private Map<String, Body> bodies = new HashMap<>();
     private Map<String, Engine> engines = new HashMap<>();
     private Map<String, Transmission> transmissions  = new HashMap<>();
 
-    public EnumMapper () {
+    public EnumMapper() {
         bodies.put(Body.Hatchback.getBody(), Body.Hatchback);
         bodies.put(Body.Minivan.getBody(), Body.Minivan);
         bodies.put(Body.Cabriolet.getBody(), Body.Cabriolet);

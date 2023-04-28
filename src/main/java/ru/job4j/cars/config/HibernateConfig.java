@@ -5,9 +5,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import ru.job4j.cars.model.enums.EnumMapper;
 
 @Configuration
 public class HibernateConfig {
@@ -20,8 +20,8 @@ public class HibernateConfig {
     }
 
     @Bean
-    public ModelMapper modelMapper() {
-        return new ModelMapper();
+    public EnumMapper enumMapper() {
+        return new EnumMapper();
     }
 
 }
