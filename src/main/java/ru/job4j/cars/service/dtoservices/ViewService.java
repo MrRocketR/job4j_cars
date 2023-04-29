@@ -10,20 +10,19 @@ import ru.job4j.cars.service.PostService;
 import ru.job4j.cars.service.UserService;
 
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Service
-public class DtoViewService {
+public class ViewService {
 
     private final PostService postService;
     private final UserService userService;
     private final CarService carService;
 
-    public DtoViewService(PostService postService,
-                          UserService userService,
-                          CarService carService) {
+    public ViewService(PostService postService,
+                       UserService userService,
+                       CarService carService) {
         this.postService = postService;
         this.userService = userService;
         this.carService = carService;

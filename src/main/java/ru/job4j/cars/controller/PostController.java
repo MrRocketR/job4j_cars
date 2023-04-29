@@ -11,9 +11,9 @@ import ru.job4j.cars.model.User;
 import ru.job4j.cars.model.enums.Body;
 import ru.job4j.cars.model.enums.Engine;
 import ru.job4j.cars.model.enums.Transmission;
-import ru.job4j.cars.service.dtoservices.DtoCreateService;
-import ru.job4j.cars.service.dtoservices.DtoUpdateService;
-import ru.job4j.cars.service.dtoservices.DtoViewService;
+import ru.job4j.cars.service.dtoservices.CreateService;
+import ru.job4j.cars.service.dtoservices.UpdateService;
+import ru.job4j.cars.service.dtoservices.ViewService;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -26,22 +26,22 @@ import java.util.Map;
 @RequestMapping("/posts")
 public class PostController {
 
-    private final DtoViewService dtoViewService;
-    private final DtoCreateService dtoCreateService;
-    private final DtoUpdateService dtoUpdateService;
+    private final ViewService viewService;
+    private final CreateService createService;
+    private final UpdateService updateService;
 
-    public PostController(DtoViewService dtoViewService,
-                          DtoCreateService dtoCreateService,
-                          DtoUpdateService dtoUpdateService) {
-        this.dtoViewService = dtoViewService;
-        this.dtoCreateService = dtoCreateService;
-        this.dtoUpdateService = dtoUpdateService;
+    public PostController(ViewService viewService,
+                          CreateService createService,
+                          UpdateService updateService) {
+        this.viewService = viewService;
+        this.createService = createService;
+        this.updateService = updateService;
     }
 
 
     @GetMapping("All")
     public String postsPageAll(Model model) {
-        List<CarPostViewDto> dtoList = dtoViewService.showAllPosts();
+        List<CarPostViewDto> dtoList = viewService.showAllPosts();
         model.addAttribute("dtoList", dtoList);
         return "posts/list";
     }
@@ -50,7 +50,7 @@ public class PostController {
 
     @GetMapping("ByNew")
     public String postsPageWithNew(Model model) {
-        List<CarPostViewDto> dtoList = dtoViewService.showActualPosts();
+        List<CarPostViewDto> dtoList = viewService.showActualPosts();
         model.addAttribute("dtoList", dtoList);
         return "posts/list";
     }
@@ -59,7 +59,7 @@ public class PostController {
     @GetMapping("myPosts")
     public String myPostsPage(Model model, HttpSession session) {
         User user = (User) session.getAttribute("user");
-        List<CarPostViewDto> dtoList = dtoViewService.showMyPostsByUser(user.getId());
+        List<CarPostViewDto> dtoList = viewService.showMyPostsByUser(user.getId());
         model.addAttribute("dtoList", dtoList);
         return "posts/myPosts";
     }
@@ -87,7 +87,7 @@ public class PostController {
         User user = (User) session.getAttribute("user");
         carPostCreateDto.setPostPhoto(file.getBytes());
         carPostCreateDto.setUserId(user.getId());
-        dtoCreateService.createPost(carPostCreateDto);
+        createService.createPost(carPostCreateDto);
         return "redirect:/posts/All";
     }
 
@@ -103,7 +103,7 @@ public class PostController {
         List<String> transmission = Arrays.stream(Transmission.values())
                 .map(Transmission::getTransmission).toList();
         model.addAttribute("transmissions", transmission);
-        CarPostViewDto viewDto = dtoViewService.showPostById(postId);
+        CarPostViewDto viewDto = viewService.showPostById(postId);
         Integer carId = viewDto.getCarId();
         session.setAttribute("carId", carId);
         model.addAttribute("viewDto", viewDto);
@@ -116,7 +116,7 @@ public class PostController {
 
 
     @PostMapping("updateAction")
-    public String updatePost(@ModelAttribute("dto") CarPostUpdateDto carPostUpdateDto,
+    public String updatePost(@ModelAttribute CarPostUpdateDto carPostUpdateDto,
                              @RequestParam("file") MultipartFile file,
                              HttpSession session) throws IOException {
         User user = (User) session.getAttribute("user");
@@ -126,7 +126,7 @@ public class PostController {
         carPostUpdateDto.setPostPhoto(file.getBytes());
         carPostUpdateDto.setPostId(postId);
         carPostUpdateDto.setCarId(carId);
-        dtoUpdateService.update(carPostUpdateDto);
+        updateService.update(carPostUpdateDto);
         return "redirect:/posts/myPosts";
     }
 
