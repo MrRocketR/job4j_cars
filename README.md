@@ -6,17 +6,11 @@
 
 Основной стек технологий:
 - Spring boot 2.5.2
-- Thymeleaf,
-- Bootstrap,
+- Thymeleaf
+- Bootstrap
 - PostgreSQL 42.2.9
-- Junit 5.7.0
-- AssertJ 3.23.1
-- log4j 1.2.17
-- JCIP Annotations 1.0
 - Hibernate 5.6.11
 - lombok 1.18.22
-- DBCP2 2.7.0
-- h2database 1.4.200
 - checkstyle-plugin 3.1.2
 - puppycrawl 9.0
 - Liquibase 3.6.2
